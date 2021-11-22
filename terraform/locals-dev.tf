@@ -1,7 +1,5 @@
 locals {
   dev_config = {
-    environment                = "dev"
-    region                     = "eu-west-1"
     cidr_block                 = "10.0.0.0/16"
     az_count                   = 2
     project                    = "devops"
@@ -11,8 +9,8 @@ locals {
     fargate_memory             = "2048"
     desired_count              = 2
     subscription_email_address = "ikurylo22@gmail.com"
-    alarm_config = {
 
-    }
   }
 }
+//image                      = "772417916823.dkr.ecr.eu-west-1.amazonaws.com/application:1.0"
+//image                      = "nginxdemos/hello"
