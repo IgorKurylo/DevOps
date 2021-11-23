@@ -1,3 +1,4 @@
+# outputs value from the module
 output "alb_endpoint" {
   value = aws_alb.ecs_alb.dns_name
 }

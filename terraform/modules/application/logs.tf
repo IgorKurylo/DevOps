@@ -1,3 +1,4 @@
+# log group for in cloudwatch
 resource "aws_cloudwatch_log_group" "application_log_group" {
   name              = "/ecs/${var.project}-${var.environment}-application"
   retention_in_days = 30
@@ -6,7 +7,7 @@ resource "aws_cloudwatch_log_group" "application_log_group" {
     Name = "${var.project}-application-log-group"
   }
 }
-
+# log stream for ecs container
 resource "aws_cloudwatch_log_stream" "application_log_stream" {
   name           = "${var.project}-${var.environment}-application-log-stream"
   log_group_name = aws_cloudwatch_log_group.application_log_group.name

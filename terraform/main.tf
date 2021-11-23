@@ -1,3 +1,4 @@
+# use with application module, pass all variables
 module "application" {
   source                     = "./modules/application"
   environment                = local.environment

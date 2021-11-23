@@ -1,3 +1,4 @@
+#  alb 
 resource "aws_alb" "ecs_alb" {
   name            = "${var.project}-load-balancer-${var.environment}"
   subnets         = aws_subnet.public_subnet.*.id
@@ -6,6 +7,7 @@ resource "aws_alb" "ecs_alb" {
     environment = var.environment
   }
 }
+# alb target group
 resource "aws_alb_target_group" "alb_target_grp" {
   name        = "${var.project}-alb-target-grp"
   port        = var.application_port
@@ -21,6 +23,7 @@ resource "aws_alb_target_group" "alb_target_grp" {
     unhealthy_threshold = "2"
   }
 }
+#  alb listener
 resource "aws_alb_listener" "alb_listener" {
   load_balancer_arn = aws_alb.ecs_alb.id
   port              = 80

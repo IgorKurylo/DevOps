@@ -1,3 +1,4 @@
+# security group access to ALB
 resource "aws_security_group" "alb_security_grp" {
   name        = "${var.project}-load-balancer-sg"
   description = "access to the ALB"
@@ -18,6 +19,7 @@ resource "aws_security_group" "alb_security_grp" {
     Environment = var.environment
   }
 }
+# security group for ecs tasks that can be access from ALB only
 resource "aws_security_group" "ecs_tasks_security_grp" {
   name        = "${var.project}-ecs-tasks-sg"
   description = "allow inbound traffict from ALB only"

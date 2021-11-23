@@ -1,6 +1,8 @@
+# ecs cluster
 resource "aws_ecs_cluster" "ecs_cluster" {
   name = "${var.project}-ecs-cluster"
 }
+# ecs task definition
 resource "aws_ecs_task_definition" "ecs_task_definition" {
   family                   = "${var.project}-${var.environment}-app-task"
   execution_role_arn       = aws_iam_role.ecs_task_execution_role.arn
@@ -10,7 +12,7 @@ resource "aws_ecs_task_definition" "ecs_task_definition" {
   memory                   = var.fargate_memory
   container_definitions    = data.template_file.app_task_definition_tpl.rendered
 }
-
+# template file of task defintion
 data "template_file" "app_task_definition_tpl" {
   template = (file("${path.module}/templates/task_definition.json.tpl"))
   vars = {
@@ -22,6 +24,7 @@ data "template_file" "app_task_definition_tpl" {
     region           = var.region
   }
 }
+# ecs service, with networking and load balancer configuration
 resource "aws_ecs_service" "ecs_service" {
   name            = "${var.project}-${var.environment}-service"
   cluster         = aws_ecs_cluster.ecs_cluster.id
