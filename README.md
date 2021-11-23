@@ -16,7 +16,7 @@
    2. You can create a new file with other configration for provisioning new environment
       (important : need to change dev_config to {environment_config} and the file also)
 
-```json
+`
 locals {
   dev_config = {
     cidr_block="cidr block for vpc"
@@ -30,7 +30,7 @@ locals {
     subscription_email_address="email-address"
   }
 }
-```
+`
 
 6.  Run `terraform plan`
 7.  Run `terraform apply` wait for finished.
