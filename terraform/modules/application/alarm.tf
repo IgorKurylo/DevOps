@@ -1,4 +1,4 @@
-resource "aws_cloudwatch_metric_alarm" "cloud_watch_alarm" {
+resource "aws_cloudwatch_metric_alarm" "cloud_watch_alarm_req_per_target" {
   alarm_name          = "${var.project}-request_count_per_target_alarm"
   metric_name         = "RequestCountPerTarget"
   statistic           = "Sum"
