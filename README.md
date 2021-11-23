@@ -16,21 +16,7 @@
    2. You can create a new file with other configration for provisioning new environment
       (important : need to change dev_config to {environment_config} and the file also)
 
-```json
-locals {
-  dev_config = {
-    cidr_block                               = "cidr block for vpc"
-    az_count                                 = "number of availability zone"
-    project                                    =  "name of project"
-    image                                      = "docker image"
-    application_port                     = container port
-    fargate_cpu                            = "cpu for container"
-    fargate_memory                    = "memory for container"
-    desired_count                        = containers count
-    subscription_email_address  = "email-address"
-  }
-}
-```
+`locals { dev_config = { cidr_block="cidr block for vpc" az_count="number of availability zone" project="name of project" image="docker image" application_port=container port fargate_cpu="cpu for container" fargate_memory="memory for container" desired_count=containers count subscription_email_address="email-address" } }`
 
 6.  Run `terraform plan`
 7.  Run `terraform apply` wait for finished.
@@ -39,5 +25,3 @@ locals {
 8.  Go to your internet browser and you should get the nginx info page.
 9.  Wait for alert email from AWS with information about alarm, when your send request to container.
 10. Run `terraform destroy` for tear down the all resource from AWS Account.
-
-###End
