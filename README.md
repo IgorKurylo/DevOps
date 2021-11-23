@@ -19,15 +19,15 @@
 ```json
 locals {
   dev_config = {
-    cidr_block                               = "cidr block for vpc"
-    az_count                                 = "number of availability zone"
-    project                                    =  "name of project"
-    image                                      = "docker image"
-    application_port                     = container port
-    fargate_cpu                            = "cpu for container"
-    fargate_memory                    = "memory for container"
-    desired_count                        = containers count
-    subscription_email_address  = "email-address"
+    cidr_block="cidr block for vpc"
+    az_count="number of availability zone"
+    project="name of project"
+    image="docker image"
+    application_port=container port
+    fargate_cpu="cpu for container"
+    fargate_memory="memory for container"
+    desired_count=containers count
+    subscription_email_address="email-address"
   }
 }
 ```
