@@ -15,7 +15,7 @@ resource "aws_alb_target_group" "alb_target_grp" {
   vpc_id      = aws_vpc.app_vpc.id
   target_type = "ip"
   health_check {
-    interval            = "30"
+    interval            = "300"
     protocol            = "HTTP"
     matcher             = "200"
     timeout             = "3"
