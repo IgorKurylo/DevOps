@@ -40,4 +40,4 @@ locals {
 9.  Wait for alert email from AWS with information about alarm, when your send request to container.
 10. Run `terraform destroy` for tear down the all resource from AWS Account.
 
-###End
+
