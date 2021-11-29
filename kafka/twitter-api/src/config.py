@@ -1,6 +1,6 @@
 import confuse
 
-
+# configuration class to load configuration
 class Config:
     def __init__(self) -> None:
         self.config = confuse.Configuration('twitter-api', __name__)

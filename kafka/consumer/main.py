@@ -3,10 +3,11 @@ import logging
 import os
 
 
+# entry point, define Consumer and read data
 def main():
     servers = os.environ.get('BROKERS')
     logging.info(f"Brokers: {servers}")
-    consumer = Consumer(servers)
+    consumer = Consumer(servers.split(","))
     consumer.read_data()
 
 

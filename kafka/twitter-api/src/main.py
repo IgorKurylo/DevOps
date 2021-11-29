@@ -10,20 +10,23 @@ from kafka_producer import Producer
 import logging
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("Producer")
+logger = logging.getLogger()
 app = Flask(__name__)
 
 bearer_token = os.environ.get('BEARER_TOKEN')
 brokers = os.environ.get('BROKERS')
-k_producer = Producer(brokers)
 configuration = Config()
+k_producer = Producer(brokers.split(','))
 
 
+# entry point of producer application
+# using with flask for request tweets, and produce to consumers
 def main():
+    logger.info(f"Brokers: {brokers}")
     app.run(host='0.0.0.0', port=8080, debug=True)
-    logger.info("BROKERS:", brokers)
 
 
+# producer tweets
 def produce_tweets(tweets_result, hashtag):
     if len(tweets_result) > 0:
         logger.info(f"receive {len(tweets_result)} tweets")
@@ -37,7 +40,9 @@ def produce_tweets(tweets_result, hashtag):
         k_producer.write_data(hashtag, key=tweet.id, value=value)
 
 
-@app.route("/tweeter")
+# flask routing, http get method, trigger for send request to tweeter api
+# get result with devops hashtags and all needed data
+@app.route("/tweeter", methods=['GET'])
 def search_endpoint():
     try:
         response = search_tweets()
@@ -50,6 +55,7 @@ def search_endpoint():
         return make_response(f"Error on request {str(e)}", 500)
 
 
+# build query and send to tweeter api
 def search_tweets():
     url = configuration.get_twitter_base_url()
     params = {
