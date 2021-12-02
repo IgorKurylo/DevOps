@@ -1,1 +1,4 @@
-.data/
+cluster/
+keys.txt
+.env
+cluster

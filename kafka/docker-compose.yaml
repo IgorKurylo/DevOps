@@ -3,7 +3,7 @@ networks:
     name: kafka-cluster
     driver: bridge
 volumes:
-  zookeeper-volume:
+  zookeeper_volume:
 
 services:
   zookeeper:
@@ -15,6 +15,8 @@ services:
       - ALLOW_ANONYMOUS_LOGIN=yes
     networks:
       - kafka-cluster
+    volumes:
+      - zookeeper_volume:/bitnami/zookeeper
     
   kafka1:
     image: bitnami/kafka:latest
@@ -23,6 +25,7 @@ services:
       - '9093:9093'
     environment:
       - KAFKA_BROKER_ID=1
+      - KAFKA_NUM_PARTITIONS=3
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
@@ -34,7 +37,8 @@ services:
       - zookeeper
     networks:
       - kafka-cluster
-      
+    volumes:
+      - ./cluster/kafka1:/bitnami/kafka
   kafka2:
     image: bitnami/kafka:latest
     container_name: kafka2
@@ -43,6 +47,7 @@ services:
     environment:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_BROKER_ID=2
+      - KAFKA_NUM_PARTITIONS=3
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9094
@@ -53,7 +58,8 @@ services:
       - zookeeper
     networks:
       - kafka-cluster
-      
+    volumes:
+      - ./cluster/kafka2:/bitnami/kafka
   kafka3:
     image: bitnami/kafka:latest
     container_name: kafka3
@@ -63,6 +69,7 @@ services:
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_BROKER_ID=1
+      - KAFKA_NUM_PARTITIONS=3
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9095
       - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka3:9092,EXTERNAL://localhost:9095
@@ -72,6 +79,10 @@ services:
       - zookeeper
     networks:
       - kafka-cluster
+    volumes:
+      - ./cluster/kafka3:/bitnami/kafka
+
+  
   # visual tool for display kafka brokers, topics
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
